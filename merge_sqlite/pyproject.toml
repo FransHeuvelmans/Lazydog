@@ -12,16 +12,35 @@ build = [
     "nuitka>=1.5.3",
 ]
 
+[tool.pdm.scripts]
+lint = "ruff src/"
+test = "pytest"
+typing_check = "mypy src/"
+format_code = "black src/"
+all = {composite = ["format_code", "lint", "typing_check", "test"]}
+
+
 [project]
-name = "lazydog_sqlite_merge"
+name = "lazydog_merge_sqlite"
 version = "0.1.0"
 description = "Merge sqlite db files"
+readme = "readme.md"
 authors = [
     {name = "Francis Hillman", email = "dj.after.burn@gmail.com"},
 ]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.10",
+    "Environment :: Console",
+    "Topic :: Database"
+]
+
 dependencies = []
 requires-python = ">=3.10"
 license = {text = "EUPL-1.2"}
+
+[project.urls]
+Repository = "https://github.com/FransHeuvelmans/Lazydog"
 
 [project.scripts]
 lazydog_merge_sqlite = "lazydog_merge_sqlite.__main__:main"

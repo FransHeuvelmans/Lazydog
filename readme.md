@@ -4,7 +4,7 @@ Inspired by [dogsheep][1] (and [Heedy][2] and [qs_ledger][3]) a personal health 
 
 ## Plan
 
-I want to add integrations to  as many tools where possible.
+I want to add integrations to as many tools as possible.
 The focus lies on FOSS applications and applications which hava an easy to use "export data" option.
 
 ## Tools

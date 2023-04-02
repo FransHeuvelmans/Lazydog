@@ -15,6 +15,8 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 
 **paseo_import**: Steps to use the sqlite output from *Paseo* in Lazydog
 
+**[openscale-to-sqlite][4]**: Load in [openscale data][5].
+
 ## Overarching TODOs
 * Handle migrations
 * Handle batching
@@ -25,3 +27,5 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 [1]: https://dogsheep.github.io/
 [2]: https://heedy.org/
 [3]: https://github.com/markwk/qs_ledger
+[4]: https://fossil.hillman.dev/openscale-to-sqlite
+[5]: https://github.com/oliexdev/openScale

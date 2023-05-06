@@ -15,7 +15,9 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 
 **paseo_import**: Steps to use the sqlite output from *Paseo* in Lazydog
 
-**[openscale-to-sqlite][4]**: Load in [openscale data][5].
+**[openscale-to-sqlite][4]**: Load in [openscale data][5]. (Golang project)
+
+**[google-fit-to-sqlite][6]**: Load in [Google Fit][7] (Takeout) data
 
 ## Overarching TODOs
 * Handle migrations
@@ -29,3 +31,5 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 [3]: https://github.com/markwk/qs_ledger
 [4]: https://fossil.hillman.dev/openscale-to-sqlite
 [5]: https://github.com/oliexdev/openScale
+[6]: https://fossil.hillman.dev/google-fit-to-sqlite
+[7]: https://www.google.com/fit/

@@ -4,6 +4,7 @@ import logging
 from typing import List, Dict
 from dataclasses import dataclass
 from pathlib import Path
+from enum import Enum
 
 COMMON_SQLITE_SUFFIX = {".sqlite", ".db"}
 logger = logging.getLogger("sqlite_merger")
@@ -18,6 +19,14 @@ class Column:
     type_: str
     notnull: bool
     pk: int
+
+
+class InsertMode(Enum):
+    """What should happen on conflicts during insertion"""
+
+    ABORT = (1,)
+    IGNORE = (2,)
+    REPLACE = 3
 
 
 TABLE_NAME_QUERY = """
@@ -101,6 +110,7 @@ def merge_dbs(
     dst: Path,
     overlapping_src_tables: List[str],
     non_overlap_src_tables: List[str],
+    insert_mode: InsertMode,
 ):
     """Copy all tables from the src db into a dst db"""
     dst_conn = sqlite3.connect(dst)
@@ -116,7 +126,7 @@ def merge_dbs(
 
     for ovr_st in overlapping_src_tables:
         q = f"""
-        INSERT INTO {ovr_st}
+        INSERT OR {insert_mode.name} INTO {ovr_st}
         SELECT *
         FROM dba.{ovr_st}
         """
@@ -130,7 +140,7 @@ def merge_dbs(
     dst_conn.close()
 
 
-def sql_merge_dbs(rest: List[Path], dst: Path):
+def sql_merge_dbs(rest: List[Path], dst: Path, insert_mode: InsertMode):
     """Merge DBs with data. copies tables from rest to dst"""
     for other_db in rest:
         dst_info = get_table_info(dst)
@@ -143,5 +153,9 @@ def sql_merge_dbs(rest: List[Path], dst: Path):
             )
             continue
         merge_dbs(
-            other_db, dst, compat.overlapping_tables, compat.non_overlapping_tables
+            other_db,
+            dst,
+            compat.overlapping_tables,
+            compat.non_overlapping_tables,
+            insert_mode,
         )

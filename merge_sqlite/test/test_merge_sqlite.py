@@ -2,6 +2,7 @@
 from pathlib import Path
 from lazydog_merge_sqlite import merge_sqlite
 import sqlite3
+import pytest
 
 
 def check_tool_info_merger(db_path):
@@ -36,8 +37,8 @@ def test_table_comparison():
     db_1 = {"tab_a": columns_a}
     db_2 = {"tab_a": columns_b}
     check1 = merge_sqlite.check_compatibility(db_1, db_2)
-    assert check1.mergable == True
-    assert check1.no_overlap == False
+    assert check1.mergable is True
+    assert check1.no_overlap is False
     assert check1.overlapping_tables == ["tab_a"]
     assert check1.non_overlapping_tables == []
 
@@ -49,16 +50,16 @@ def test_table_comparison():
     db_1 = {"tab_a": columns_a}
     db_2 = {"tab_a": columns_c}
     check2 = merge_sqlite.check_compatibility(db_1, db_2)
-    assert check2.mergable == False
-    assert check2.no_overlap == False
+    assert check2.mergable is False
+    assert check2.no_overlap is False
     assert check2.overlapping_tables == []  # Nothing, bad match
     assert check2.non_overlapping_tables == []
 
     db_1 = {"tab_a": columns_a}
     db_2 = {"tab_b": columns_c}
     check3 = merge_sqlite.check_compatibility(db_1, db_2)
-    assert check3.mergable == True
-    assert check3.no_overlap == True
+    assert check3.mergable is True
+    assert check3.no_overlap is True
     assert check3.overlapping_tables == []
     assert check3.non_overlapping_tables == ["tab_a"]
 
@@ -72,7 +73,15 @@ def test_first_copy(db_export_file):
     assert "openscale_measurements" in table_info
 
 
-def test_merger(db_export_file):
+@pytest.mark.parametrize(
+    "insert_mode",
+    [
+        merge_sqlite.InsertMode.REPLACE,
+        merge_sqlite.InsertMode.ABORT,
+        merge_sqlite.InsertMode.IGNORE,
+    ],
+)
+def test_merger(db_export_file, insert_mode: merge_sqlite.InsertMode):
     a_db_path = (Path(__file__).parent) / "data" / "healthkit.db"
     merge_sqlite.first_copy(a_db_path, db_export_file)
 
@@ -81,13 +90,14 @@ def test_merger(db_export_file):
     a_info = merge_sqlite.get_table_info(db_export_file)
     b_info = merge_sqlite.get_table_info(b_db_path)
     compat_res = merge_sqlite.check_compatibility(b_info, a_info)
-    assert compat_res.mergable == True
-    assert compat_res.no_overlap == False
+    assert compat_res.mergable is True
+    assert compat_res.no_overlap is False
     merge_sqlite.merge_dbs(
         b_db_path,
         db_export_file,
         compat_res.overlapping_tables,
         compat_res.non_overlapping_tables,
+        insert_mode,
     )
 
     out_info = merge_sqlite.get_table_info(db_export_file)

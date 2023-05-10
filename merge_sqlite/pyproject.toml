@@ -22,7 +22,7 @@ all = {composite = ["format_code", "lint", "typing_check", "test"]}
 
 [project]
 name = "lazydog_merge_sqlite"
-version = "0.1.0"
+version = "0.1.1"
 description = "Merge sqlite db files"
 readme = "readme.md"
 authors = [

@@ -17,13 +17,14 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 
 **[openscale-to-sqlite][4]**: Load in [openscale data][5]. (Golang project)
 
-**[google-fit-to-sqlite][6]**: Load in [Google Fit][7] (Takeout) data
+**[google-fit-to-sqlite][6]**: Load in [Google Fit][7] (Takeout) data (Rust project)
+
+**[fast-n-fitness-to-sqlite][8]**: Load in [Fast-n-fitness][9] data (Dlang project)
 
 ## Overarching TODOs
 * Handle migrations
 * Handle batching
 * Handle duplicate data loading
-
 
 
 [1]: https://dogsheep.github.io/
@@ -33,3 +34,5 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 [5]: https://github.com/oliexdev/openScale
 [6]: https://fossil.hillman.dev/google-fit-to-sqlite
 [7]: https://www.google.com/fit/
+[8]: https://fossil.hillman.dev/fast-n-fitness-to-sqlite
+[9]: https://f-droid.org/en/packages/com.easyfitness/

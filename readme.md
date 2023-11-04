@@ -11,15 +11,19 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 
 **merge_sqlite**: Combine the extracted sqlite files into a single sqlite file which is easier to analyze and further process
 
-**healthkit_import** (Apple Health): Steps to use the *healthkit-to-sqlite* tool for importing data in Lazydog
+**healthkit_import** (Apple Health): Steps to use the *healthkit-to-sqlite* tool for importing data in Lazydog (not needed when using transformations)
 
-**paseo_import**: Steps to use the sqlite output from *Paseo* in Lazydog
+**paseo_import**: Steps to use the sqlite output from *Paseo* in Lazydog (not needed when using transformations)
 
 **[openscale-to-sqlite][4]**: Load in [openscale data][5]. (Golang project)
 
 **[google-fit-to-sqlite][6]**: Load in [Google Fit][7] (Takeout) data (Rust project)
 
 **[fast-n-fitness-to-sqlite][8]**: Load in [Fast-n-fitness][9] data (Dlang project)
+
+**transformations**: A [dbt-core][10]-project which shows example sql-processing of the datasources
+
+**bangle_import**: Support importing bangle smartwatch data
 
 ## Overarching TODOs
 * Handle migrations
@@ -36,3 +40,4 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 [7]: https://www.google.com/fit/
 [8]: https://fossil.hillman.dev/fast-n-fitness-to-sqlite
 [9]: https://f-droid.org/en/packages/com.easyfitness/
+[10]: https://docs.getdbt.com/

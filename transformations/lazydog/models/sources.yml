@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: paseo
+    description: "Raw export paseo"
+    database: lazydog
+    schema: paseo_raw
+    tables:
+      - name: activityType
+      - name: android_metadata
+      - name: hours
+  - name: healthkit
+    description: "Raw healthkit export"
+    database: lazydog
+    schema: healthkit_raw
+    tables:
+      - name: rBodyMass
+      - name: rDistanceWalkingRunning
+      - name: rFlightsClimbed
+      - name: rHeight
+      - name: rSleepAnalysis
+      - name: rStepCount
+  - name: google_fit
+    description: "google-fit-to-sqlite export"
+    database: lazydog
+    schema: gfit_sqlite
+    tables:
+      - name: g_fit_activity_durations
+      - name: g_fit_daily_activities
+      - name: g_fit_daily_summaries
+      - name: g_fit_garmin_activities
+      - name: g_fit_garmin_laps
+      - name: g_fit_garmin_trackpoints
+      - name: g_fit_locations
+      - name: g_fit_session_i_aggregates
+      - name: g_fit_session_segments
+      - name: g_fit_session_v_segments
+      - name: g_fit_sessions
+      - name: g_fit_speed
+      - name: g_fit_summary_durations
+      - name: g_fit_weights

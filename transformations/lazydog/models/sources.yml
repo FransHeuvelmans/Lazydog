@@ -39,3 +39,9 @@ sources:
       - name: g_fit_speed
       - name: g_fit_summary_durations
       - name: g_fit_weights
+  - name: openscale
+    description: "openscale-to-sqlite export"
+    database: lazydog
+    schema: openscale_raw
+    tables:
+      - name: openscale_measurements

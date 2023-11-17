@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: paseo_clean_steps
+    columns:
+      - name: source_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('paseo_steps')
+              field: _id
+      - name: start_hour
+        tests:
+          - not_null
+      - name: steps_in_hour
+        tests:
+          - not_null
+          - non_negative_num
+  - name: paseo_ghost_steps
+    columns:
+      - name: source_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('paseo_steps')
+              field: _id
+      - name: start_hour
+        tests:
+          - not_null
+      - name: found_steps
+        tests:
+          - not_null
+          - non_negative_num
+      - name: step_difference
+        tests:
+          - not_null

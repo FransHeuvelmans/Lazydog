@@ -1,0 +1,110 @@
+version: 2
+
+models:
+  - name: gfit_daily_fit_summary
+    columns:
+      - name: day_date
+        tests:
+          - unique
+          - not_null
+      - name: move_minutes
+        tests:
+          - positive_num
+      - name: distance_meter
+        tests:
+          - positive_num
+      - name: heart_point
+        tests:
+          - positive_num
+      - name: heart_minutes
+        tests:
+          - positive_num
+      - name: step_count
+        tests:
+          - positive_num
+  - name: gfit_weight_summary
+    columns:
+      - name: day_date
+        tests:
+          - unique
+          - not_null
+      - name: heart_point
+        tests:
+          - positive_num
+      - name: average_kilo
+        tests:
+          - positive_num
+  - name: healthkit_bodymass
+    columns:
+      - name: startDate
+        tests:
+          - not_null
+      - name: endDate
+        tests:
+          - not_null
+      - name: value
+        tests:
+          - not_null
+          - positive_num
+  - name: healthkit_distance_walking_running
+    columns:
+      - name: startDate
+        tests:
+          - not_null
+      - name: endDate
+        tests:
+          - not_null
+      - name: value
+        tests:
+          - not_null
+          - positive_num
+  - name: healthkit_flights_climbed
+    columns:
+      - name: startDate
+        tests:
+          - not_null
+      - name: endDate
+        tests:
+          - not_null
+      - name: value
+        tests:
+          - not_null
+          - positive_num
+  - name: healthkit_step_count
+    columns:
+      - name: startDate
+        tests:
+          - not_null
+      - name: endDate
+        tests:
+          - not_null
+      - name: value
+        tests:
+          - not_null
+          - positive_num
+  - name: paseo_steps
+    columns:
+      - name: startSteps
+        tests:
+          - not_null
+          - non_negative_num
+      - name: endSteps
+        tests:
+          - not_null
+          - non_negative_num
+      - name: hour
+        tests:
+          - not_null
+  - name: openscale_weight
+    columns:
+      - name: type
+        tests:
+          - not_null
+      - name: datetime
+        tests:
+          - not_null
+          - unique
+      - name: value
+        tests:
+          - not_null
+          - positive_num

@@ -11,7 +11,7 @@ FROM {{ ref('paseo_steps') }}
 -- Small positive changes at the start of the day are probably recorded by Android at some point but not logged on the hour
 SELECT 
 	tab_hours._id as source_id,
-    datetime(substr(tab_hours.date, 1, 4) || '-' || substr(tab_hours.date, 5, 2) || '-' || substr(tab_hours.date, 7, 2) || 'T' || PRINTF('%02d',tab_hours.hour) || ':00') as `start_hour`,
+	datetime(substr(tab_hours.date, 1, 4) || '-' || substr(tab_hours.date, 5, 2) || '-' || substr(tab_hours.date, 7, 2) || 'T' || PRINTF('%02d',tab_hours.hour) || ':00') as `start_hour`,
 	tab_hours.startSteps as found_steps,
 	-- (tab_hours.endSteps - tab_hours.startSteps) as steps_in_hour,
 	tab_diff.step_difference

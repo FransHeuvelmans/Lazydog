@@ -41,4 +41,7 @@ models:
     clean:
       +materialized: table
       +schema: cln
+    out:
+      +materialized: table
+      +schema: out
 

@@ -1,3 +1,4 @@
+---- These are the raw sql for sqlite transformation steps
 --- Get exact steps and hours better formatted
 CREATE TABLE paseo_tracked_steps AS
 SELECT 

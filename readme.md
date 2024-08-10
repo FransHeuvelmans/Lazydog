@@ -11,9 +11,9 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 
 **merge_sqlite**: Combine the extracted sqlite files into a single sqlite file which is easier to analyze and further process
 
-**healthkit_import** (Apple Health): Steps to use the *healthkit-to-sqlite* tool for importing data in Lazydog (not needed when using transformations)
+**healthkit_import** (Apple Health): Steps to use the *healthkit-to-sqlite* tool for importing data in Lazydog (Sql-code also a part of transformations)
 
-**paseo_import**: Steps to use the sqlite output from *Paseo* in Lazydog (not needed when using transformations)
+**paseo_import**: Transform and merge Paseo[11] data (C - meson project). Includes SQL code to transform the sqlite output from *Paseo* into Lazydog-style (Sql-code also a part of transformations)
 
 **[openscale-to-sqlite][4]**: Load in [openscale data][5]. (Golang project)
 
@@ -41,3 +41,4 @@ The focus lies on FOSS applications and applications which hava an easy to use "
 [8]: https://fossil.hillman.dev/fast-n-fitness-to-sqlite
 [9]: https://f-droid.org/en/packages/com.easyfitness/
 [10]: https://docs.getdbt.com/
+[11]: https://f-droid.org/packages/ca.chancehorizon.paseo/

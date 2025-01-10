@@ -173,6 +173,32 @@ static void test_some_range_queries(void **state) {
     assert_int_equal(err, EXIT_FAILURE);
 }
 
+static void test_double_merge(void **state) {
+    const char *gd_path_out = "../paseo_examples/test.db";
+    remove_file(gd_path_out);
+    const char *orig_path_maindb = "../paseo_examples/orig/test.db";
+    copy_file(orig_path_maindb, gd_path_out);
+
+    int err;
+    const char *gd_path_old = "../paseo_examples/paseoDB20231011-205117.db";
+    remove_file(gd_path_old);
+    const char *orig_path_old = "../paseo_examples/orig/paseoDB20231011-205117.db";
+    copy_file(orig_path_old, gd_path_old);
+    err = transform_db(gd_path_old);
+    assert_int_equal(err, EXIT_SUCCESS);
+    err = merge_db(gd_path_old, gd_path_out);
+    assert_int_equal(err, EXIT_SUCCESS);
+
+    const char *gd_path_new = "../paseo_examples/paseoDB20240722-160856.db";
+    remove_file(gd_path_new);
+    const char *orig_path_new = "../paseo_examples/orig/paseoDB20240722-160856.db";
+    copy_file(orig_path_new, gd_path_new);
+    err = transform_db(gd_path_new);
+    assert_int_equal(err, EXIT_SUCCESS);
+    err = merge_db(gd_path_new, gd_path_out);
+    assert_int_equal(err, EXIT_SUCCESS);
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_bad_path),
@@ -181,6 +207,7 @@ int main(void) {
         cmocka_unit_test(test_merge_empty_path),
         cmocka_unit_test(test_merge_2_db),
         cmocka_unit_test(test_some_range_queries),
+        cmocka_unit_test(test_double_merge),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

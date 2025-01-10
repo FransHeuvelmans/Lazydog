@@ -1,3 +1,4 @@
+#!/opt/homebrew/bin/fish
 argparse --name=autoload 'h/help' 't/target=' 'd/dir=!test -d "$_flag_value"' -- $argv
 if test $status -ne 0
     echo "Error: Invalid arguments"
@@ -6,7 +7,7 @@ end
 
 # TODO: Needed for sqlite-utils
 # THis could be added in a better / more robust way
-fish_add_path  ~/miniconda3/envs/lazydog_3_10/bin
+conda activate lazydog_3_10
 
 for a_dir in (ls -dv $_flag_d/*/)
     echo "Processing $a_dir"

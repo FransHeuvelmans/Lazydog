@@ -69,7 +69,7 @@ clean_and_return:
 }
 
 static const char *tracked_steps_ddl =
-        "CREATE TABLE paseo_tracked_steps (source_id INT PRIMARY KEY, start_hour TEXT, steps_in_hour INT); ";
+        "CREATE TABLE paseo_tracked_steps (source_id INT NOT NULL, start_hour TEXT, steps_in_hour INT, PRIMARY KEY(source_id, start_hour)); ";
 
 static const char *tracked_steps_sql =
         "INSERT INTO paseo_tracked_steps "
@@ -88,7 +88,7 @@ static const char *temp_hour_diffs_sql =
         "ORDER BY `date`, `hour`; ";
 
 static const char *lost_steps_ddl =
-        "CREATE TABLE paseo_lost_steps (source_id INTEGER PRIMARY KEY ASC, start_hour TEXT NOT NULL, found_steps INT, steps_in_hour INT, step_difference INT); ";
+        "CREATE TABLE paseo_lost_steps (source_id INTEGER NOT NULL, start_hour TEXT NOT NULL, found_steps INT, steps_in_hour INT, step_difference INT, PRIMARY KEY(source_id, start_hour)); ";
 
 static const char *lost_steps_sql =
         "INSERT INTO paseo_lost_steps "
@@ -170,6 +170,7 @@ fail_out:
     return EXIT_FAILURE;
 }
 
+/* Are there paseo tables ? */
 static int check_paseo_tables(sqlite3 *db) {
     sqlite3_stmt *stmt;
     const char *query = "SELECT count(1) FROM sqlite_master WHERE type='table' and name like 'paseo%'; ";
@@ -278,8 +279,9 @@ static int apply_merge_step(sqlite3 *db) {
         "INSERT OR REPLACE INTO paseo_lost_steps SELECT * FROM dba.paseo_lost_steps; ",
         "INSERT OR REPLACE INTO paseo_android_metadata SELECT * FROM dba.paseo_android_metadata; ",
         "INSERT OR REPLACE INTO paseo_activity_type SELECT * FROM dba.paseo_activity_type; ",
+        "INSERT OR REPLACE INTO paseo_hours SELECT * FROM dba.paseo_hours; ",
     };
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         char *zErrMsg = 0;
         const int ret_code = sqlite3_exec(db, merge_statements_sql[i], callback, 0, &zErrMsg);
         if (ret_code != SQLITE_OK) {
@@ -298,8 +300,9 @@ static int apply_copy_step(sqlite3 *db) {
         "CREATE TABLE paseo_lost_steps AS SELECT * FROM dba.paseo_lost_steps; ",
         "CREATE TABLE paseo_android_metadata AS SELECT * FROM dba.paseo_android_metadata; ",
         "CREATE TABLE paseo_activity_type AS SELECT * FROM dba.paseo_activity_type; ",
+        "CREATE TABLE paseo_hours AS SELECT * FROM dba.paseo_hours; ",
     };
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         char *zErrMsg = 0;
         const int ret_code = sqlite3_exec(db, copy_statements_sql[i], callback, 0, &zErrMsg);
         if (ret_code != SQLITE_OK) {

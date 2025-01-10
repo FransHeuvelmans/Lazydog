@@ -5,13 +5,21 @@
 #include "db_ops.h"
 #include "tsv.h"
 
+void printHelp() {
+    printf("Usage: paseo_import [options] <target_db>\n");
+    printf("Converts a paseo exported sqlite db into a Lazydog compatible db and merges paseo-tables in two Lazydog dbs.\n");
+    printf("Options:\n");
+    printf("\t-i <db1>\tSpecify the db you want to merge into the target db\n");
+    printf("\t-h\tDisplay this help message and quit\n");
+}
+
 int main(int argc, char *argv[argc + 1]) {
     int opt;
     const char *input_db_path = NULL;
     const char *query = NULL;
     _Bool writeTsv = 0;
 
-    while ((opt = getopt(argc, argv, "i:j:")) != -1) {
+    while ((opt = getopt(argc, argv, "i:j:h")) != -1) {
         switch (opt) {
             case 'i':
                 printf("Merging input db: %s\n", optarg);
@@ -22,6 +30,9 @@ int main(int argc, char *argv[argc + 1]) {
                 query = optarg;
                 writeTsv = 1;
                 break;
+            case 'h':
+                printHelp();
+            return EXIT_SUCCESS;
             default:
                 printf("Unknown option %c - skipping\n", opt);
         }
